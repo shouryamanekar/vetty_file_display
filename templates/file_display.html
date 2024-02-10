@@ -26,7 +26,7 @@
             <!-- Row for file selection, start line, end line, and submit button -->
             <div class="row">
                 <!-- Dropdown menu for selecting file -->
-                <div class="input-field col s3">
+                <div class="input-field col s12 m3">
                     <select id="fileSelect" class="browser-default">
                         <option value="" disabled selected>Select a file</option>
                         {% for file in files %}
@@ -36,17 +36,17 @@
                 </div>
                 
                 <!-- Text fields for start and end line numbers -->
-                <div class="input-field col s2">
+                <div class="input-field col s12 m2">
                     <input id="startLine" type="number" class="validate">
                     <label for="startLine">Start Line</label>
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col s12 m2">
                     <input id="endLine" type="number" class="validate">
                     <label for="endLine">End Line</label>
                 </div>
                 
                 <!-- Submit button -->
-                <div class="input-field col s2">
+                <div class="input-field col s12 m2">
                     <button class="btn waves-effect waves-light" onclick="submitForm()">Submit</button>
                 </div>
             </div>
