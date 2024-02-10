@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Display</title>
+    <!-- Import Material-UI styles and fonts -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -20,9 +21,40 @@
 </head>
 <body>
     <div id="root">
+        <!-- Material-UI container for content -->
         <div class="container">
+            <!-- Row for file selection, start line, end line, and submit button -->
+            <div class="row">
+                <!-- Dropdown menu for selecting file -->
+                <div class="input-field col s3">
+                    <select id="fileSelect" class="browser-default">
+                        <option value="" disabled selected>Select a file</option>
+                        {% for file in files %}
+                            <option value="{{ file }}">{{ file }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Text fields for start and end line numbers -->
+                <div class="input-field col s2">
+                    <input id="startLine" type="number" class="validate">
+                    <label for="startLine">Start Line</label>
+                </div>
+                <div class="input-field col s2">
+                    <input id="endLine" type="number" class="validate">
+                    <label for="endLine">End Line</label>
+                </div>
+                
+                <!-- Submit button -->
+                <div class="input-field col s2">
+                    <button class="btn waves-effect waves-light" onclick="submitForm()">Submit</button>
+                </div>
+            </div>
+
+            <!-- Material-UI card for displaying content -->
             <div class="card">
                 <div class="card-content">
+                    <!-- Use Material-UI typography component for displaying content -->
                     {% for line in content.split('\n') %}
                         <p class="flow-text">{{ line }}</p>
                     {% endfor %}
@@ -30,6 +62,16 @@
             </div>
         </div>
     </div>
+    <!-- Import Materialize JavaScript for styling -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        // Function to submit form with selected file and line numbers
+        function submitForm() {
+            var selectedFile = document.getElementById("fileSelect").value;
+            var startLine = document.getElementById("startLine").value;
+            var endLine = document.getElementById("endLine").value;
+            window.location.href = "/?filename=" + selectedFile + "&start_line=" + startLine + "&end_line=" + endLine;
+        }
+    </script>
 </body>
 </html>

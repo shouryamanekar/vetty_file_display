@@ -4,13 +4,16 @@ import chardet
 
 app = Flask(__name__)
 
-# Define the directory where files are stored
+# Get the path to the files directory
 files_dir = os.path.join(os.path.dirname(__file__), 'files')
 
 @app.route('/')
 def display_file():
-    # Get filename from URL parameter, default to 'file1.txt'
-    filename = request.args.get('filename', 'file1.txt')
+    # Get list of file names in the 'files' directory
+    files = os.listdir(files_dir)
+
+    # Get filename from URL parameter, default to first file in the list
+    filename = request.args.get('filename', files[0])
 
     # Get start and end line numbers from URL parameters
     start_line = request.args.get('start_line', type=int)
@@ -45,13 +48,12 @@ def display_file():
         # Join the lines back into a single string
         content = '\n'.join(lines)
 
-        # Render the file content in the template
-        return render_template('file_display.html', content=content)
+        # Render the template with file names and content
+        return render_template('file_display.html', files=files, content=content)
     
     except Exception as e:
         # Render error page if an exception occurs
         return render_template('error.html', error=str(e))
 
 if __name__ == '__main__':
-    # Run the Flask application
     app.run(debug=True)
